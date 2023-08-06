@@ -2,14 +2,17 @@ from sqlalchemy.orm import Session
 
 from . import keygen, models, schemas
 
+APP_ADDRESS = "http://127.0.0.1:8000"
+
 
 def create_db_url(db: Session, url: schemas.URLBase) -> models.URL:
     key = keygen.create_unique_random_key(db)
     secret_key = f"{key}_{keygen.create_random_key(length=8)}"
     db_url = models.URL(
         target_url=url.target_url,
+        shortened_url=f"{APP_ADDRESS}/{key}",
         key=key,
-        secret_key=secret_key
+        secret_key=secret_key,
     )
     db.add(db_url)
     db.commit()
@@ -18,7 +21,7 @@ def create_db_url(db: Session, url: schemas.URLBase) -> models.URL:
 
 
 def get_db_url_by_key(db: Session, url_key: str) -> models.URL:
-    return(
+    return (
         db.query(models.URL)
         .filter(models.URL.key == url_key, models.URL.is_active)
         .first()
@@ -26,11 +29,15 @@ def get_db_url_by_key(db: Session, url_key: str) -> models.URL:
 
 
 def get_db_url_by_secret_key(db: Session, secret_key: str) -> models.URL:
-    return(
+    return (
         db.query(models.URL)
         .filter(models.URL.secret_key == secret_key, models.URL.is_active)
         .first()
     )
+
+
+def get_shortened_urls(db: Session) -> models.URL:
+    return db.query(models.URL).filter(models.URL.is_active).all()
 
 
 def updated_db_clicks(db: Session, db_url: schemas.URL) -> models.URL:
