@@ -1,24 +1,27 @@
 // Imports
-import React, { useState, createContext, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 // Components
-import ShortenUrlForm from "./components/form";
 import Navbar from "./components/navbar/navbar";
-import Title from "./components/title";
 
 const App = () => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
 
   const getWelcomeMessage = async () => {
-    const requestOptions = {
-      method: "GET",
-      headers: { "Content-Type": "applicaion/json" },
-    };
-    const response = await fetch("http://localhost:8000/", requestOptions);
-    const data = await response.json();
+    try {
 
-    setMessage(data.message);
+      const requestOptions = {
+        method: "GET",
+        headers: { "Content-Type": "applicaion/json" },
+      };
+      // TODO: Axios instead of fetch
+      const response = await fetch("http://localhost:8000/", requestOptions);
+      const data = await response.json();
+      
+      setMessage(data.message);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
