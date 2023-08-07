@@ -14,6 +14,7 @@ const Navbar: React.FC<{}> = () => {
   //   setPaths(["Home", "Create TinyURL", "All TinyURL"]);
   // }, [location]);
 
+  // TODO: mui Navbar
   return <nav className={styles.Navbar}>Nav</nav>;
 };
 

@@ -1,0 +1,38 @@
+# Ignore common development and version control files
+.git
+__pycache__
+*.pyc
+*.pyo
+*.swp
+
+# Ignore files and directories related to virtual environments
+venv
+.env
+.Python
+*.egg-info
+
+# Ignore local development files
+*.log
+*.vscode
+.vscode/
+
+# Ignore test and documentation files
+tests/
+docs/
+
+# Ignore files specific to your IDE or editor
+.idea
+*.sublime-workspace
+*.sublime-project
+*.vs
+
+# Ignore system or hidden files
+.DS_Store
+Thumbs.db
+
+# Ignore Docker specific files
+Dockerfile
+.dockerignore
+
+# Ignore any sensitive or secret files
+secrets/
