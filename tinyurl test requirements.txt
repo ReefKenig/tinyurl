@@ -1,0 +1,30 @@
+Test Requirements:
+
+Develop a Tiny URL Web App using Python, FastAPI, PostgreSQL, and SQLAlchemy for the backend and React with TypeScript for the frontend.
+The web application should allow users to create short URLs for any given URL as a request.
+The backend should use PostgreSQL as the database to store the mappings of long URLs to short URLs.
+Implement a page to display all the URLs that have been created by the users.
+Implement URL redirection in case the user provides a short URL.
+
+Test Tasks:
+
+Backend Task:
+a. Set up a FastAPI project with SQLAlchemy configured to work with PostgreSQL.
+b. Implement an API endpoint that takes a long URL as input and returns a short URL.
+c. Store the URL mappings in the PostgreSQL database.
+d. Implement an API endpoint to retrieve all the URLs that have been created and return them in a paginated (IE: numerize them) format.
+
+Frontend Task:
+a. Set up a new React project with TypeScript.
+b. Design a simple user interface for the web app, including a page to display all created URLs.
+c. Implement a form that takes a long URL as input from the user.
+d. On form submission, make a request to the backend API to create a short URL and display it to the user.
+e. Implement a page to display all the created URLs, fetched from the backend API.
+f. Implement a mechanism to redirect users to the original long URL when they access a short URL.
+
+Integration Task:
+a. Integrate the backend and frontend components to form a complete web application.
+b. Test the web application as a whole to ensure smooth functionality.
+c. Handle potential errors and edge cases gracefully.
+
+add docker-compose.yml file to handle all microservices
