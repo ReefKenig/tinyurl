@@ -1,0 +1,16 @@
+{
+  "links": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Create TinyURL",
+      "href": "/"
+    },
+    {
+      "label": "View All TinyURLs",
+      "href": "/all"
+    }
+  ]
+}

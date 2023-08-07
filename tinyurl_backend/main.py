@@ -1,6 +1,7 @@
 import validators
 from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from starlette.datastructures import URL
 
@@ -9,6 +10,14 @@ from .database import SessionLocal, engine
 from .config import get_settings
 
 app = FastAPI()
+origins = ["http://localhost:3000", "http://localhost:8000"]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 models.Base.metadata.create_all(bind=engine)
 
 
@@ -40,8 +49,8 @@ def get_admin_info(db_url: models.URL) -> schemas.URLInfo:
 
 
 @app.get("/")
-def read_root():
-    return "Welcome to the TinyURL API"
+async def read_root():
+    return {"message": "Welcome to the TinyURL API"}
 
 
 @app.get("/{url_key}")

@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Imports
+import React, { useState, createContext, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import "./App.css";
+// Components
+import ShortenUrlForm from "./components/form";
+import Navbar from "./components/navbar/navbar";
+import Title from "./components/title";
 
-function App() {
+const App = () => {
+  const [message, setMessage] = useState("");
+
+  const getWelcomeMessage = async () => {
+    const requestOptions = {
+      method: "GET",
+      headers: { "Content-Type": "applicaion/json" },
+    };
+    const response = await fetch("http://localhost:8000/", requestOptions);
+    const data = await response.json();
+
+    setMessage(data.message);
+  };
+
+  useEffect(() => {
+    getWelcomeMessage();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <h1>{message}</h1>
     </div>
   );
-}
+};
 
 export default App;
