@@ -1,21 +1,26 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import axios from "axios";
-import styles from "./navbar.module.css";
+// Imports
+import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC<{}> = () => {
-  // const location = useLocation();
-  // const [paths, setPaths]: any[] = useState([]);
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   setPaths(["Home", "Create TinyURL", "All TinyURL"]);
-  // }, [location]);
-
-  // TODO: mui Navbar
-  return <nav className={styles.Navbar}>Nav</nav>;
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" paddingRight={"20px"}>
+          <Link to="/">Home</Link>
+        </Typography>
+        <Typography variant="h6" paddingRight={"20px"}>
+          <Link to="/create">Create TinyUrl</Link>
+        </Typography>
+        <Typography variant="h6">
+          <Link to="/management">Manage TinyURLs</Link>
+        </Typography>
+      </Toolbar>
+    </AppBar>
+  );
 };
 
 export default Navbar;

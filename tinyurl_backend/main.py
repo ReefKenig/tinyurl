@@ -53,7 +53,7 @@ async def read_root():
     return {"message": "Welcome to the TinyURL API"}
 
 
-@app.get("/{url_key}")
+@app.get("/api/{url_key}")
 def forward_to_target_url(
     url_key: str, request: Request, db: Session = Depends(get_db)
 ):
@@ -65,7 +65,9 @@ def forward_to_target_url(
 
 
 @app.get(
-    "/admin/{secret_key}", name="administration info", response_model=schemas.URLInfo
+    "/api/admin/{secret_key}",
+    name="administration info",
+    response_model=schemas.URLInfo,
 )
 def get_url_info(secret_key: str, request: Request, db: Session = Depends(get_db)):
     if db_url := crud.get_db_url_by_secret_key(db, secret_key):
@@ -74,7 +76,7 @@ def get_url_info(secret_key: str, request: Request, db: Session = Depends(get_db
         raise_not_found(request)
 
 
-@app.get("/all/")
+@app.get("/api/all/")
 def read_shortened_urls(db: Session = Depends(get_db)):
     urls = crud.get_shortened_urls(db)
     if len(urls) > 0:
@@ -85,7 +87,7 @@ def read_shortened_urls(db: Session = Depends(get_db)):
         raise HTTPException(404, detail="No active shortened URLs were found")
 
 
-@app.post("/url", response_model=schemas.URLInfo)
+@app.post("/api/url", response_model=schemas.URLInfo)
 def create_url(url: schemas.URLBase, db: Session = Depends(get_db)):
     if not validators.url(url.target_url):
         raise_bad_request("Your provided URL is not valid")
@@ -94,7 +96,7 @@ def create_url(url: schemas.URLBase, db: Session = Depends(get_db)):
     return get_admin_info(db_url)
 
 
-@app.delete("/admin/{secret_key}")
+@app.delete("/api/admin/{secret_key}")
 def delete_url(secret_key: str, request: Request, db: Session = Depends(get_db)):
     if db_url := crud.deactivate_db_url_by_secret_key(db, secret_key):
         message = f"Successfully deleted shortened URL for '{db_url.target_url}'"

@@ -10,7 +10,7 @@ def create_db_url(db: Session, url: schemas.URLBase) -> models.URL:
     secret_key = f"{key}_{keygen.create_random_key(length=8)}"
     db_url = models.URL(
         target_url=url.target_url,
-        shortened_url=f"{APP_ADDRESS}/{key}",
+        shortened_url=f"{APP_ADDRESS}/api/{key}",
         key=key,
         secret_key=secret_key,
     )
