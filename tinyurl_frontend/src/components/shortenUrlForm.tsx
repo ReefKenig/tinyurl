@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import axios from "axios";
 
 interface ShortenUrlFormProps {
-  onSubmit: (url: string) => void;
+  onSubmit: (responseData: string) => void;
 }
 
 const ShortenUrlForm: React.FC<ShortenUrlFormProps> = ({ onSubmit }) => {
   const [url, setUrl] = useState("");
+  // const [responseData, setResponseData] = useState<any>(null);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -20,27 +22,36 @@ const ShortenUrlForm: React.FC<ShortenUrlFormProps> = ({ onSubmit }) => {
         },
         { headers: { "Content-Type": "application/json" } }
       );
-      console.log("response from backend: ", response.data);
+      // setResponseData(response.data["shortened_url"]);
 
-      onSubmit(url);
+      onSubmit(response.data["shortened_url"]);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        label="Enter URL"
-        variant="outlined"
-        fullWidth
-        value={url}
-        onChange={(e) => setUrl(e.target.value)}
-      />
-      <Button type="submit" variant="contained" color="primary">
-        Create TinyURL
-      </Button>
-    </form>
+    <Box
+      // display={"flex"}
+      justifyContent={"center"}
+      textAlign={"center"}
+      paddingTop={"3%"}
+      height={"20vh"}
+    >
+      <form onSubmit={handleSubmit}>
+        <TextField
+          placeholder="Enter URL"
+          variant="outlined"
+          fullWidth
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <br />
+        <Button type="submit" variant="contained" color="primary">
+          Generate TinyURL
+        </Button>
+      </form>
+    </Box>
   );
 };
 
