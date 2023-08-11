@@ -1,7 +1,12 @@
 import React from "react";
+import TinyurlTable from "../components/tinyurlTable";
 
 const Management = () => {
-  return <div>manage me</div>;
+  return (
+    <div>
+      <TinyurlTable />
+    </div>
+  );
 };
 
 export default Management;

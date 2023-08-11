@@ -17,7 +17,7 @@ const App: React.FC = () => {
         <Navbar />
         <Routes>
           <Route path="/" Component={Home} />
-          <Route path="/manage" Component={Management} />
+          <Route path="/management" Component={Management} />
           <Route path="/create" Component={TinyurlForm} />
         </Routes>
       </div>
