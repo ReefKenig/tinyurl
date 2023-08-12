@@ -1,18 +1,22 @@
 version: "3.4"
 
 services:
-  tinyurl_backend:
-    build: ./tinyurl_backend
-    environment:
-      PORT: 8000
-    env_file:
-      - .env
+  database:
+    image: postgres:latest
     ports:
-      - 8000:8000
+      - "5432:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "RkPs090320"
+      POSTGRES_DB: "tinyurl_db"
+
+  backend:
+    build: ./tinyurl_backend
+    ports:
+      - "8000:8000"
 
   tinyurl_frontend:
     build: ./tinyurl_frontend
-    environment:
-      PORT: 3000
     ports:
-      - 3000:3000
+      - "3000:3000"

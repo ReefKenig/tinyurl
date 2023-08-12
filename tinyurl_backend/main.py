@@ -10,10 +10,10 @@ from .database import SessionLocal, engine
 from .config import get_settings
 
 app = FastAPI()
-origins = ["http://localhost:3000", "http://localhost:8000"]
+# origins = ["http://0.0.0.0:3000", "http://0.0.0.0:8000"]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -80,8 +80,7 @@ def get_url_info(secret_key: str, request: Request, db: Session = Depends(get_db
 def read_shortened_urls(db: Session = Depends(get_db)):
     urls = crud.get_shortened_urls(db)
     if len(urls) > 0:
-        for url in urls:
-            urls[urls.index(url)] = url.shortened_url
+        urls = [url.shortened_url for url in urls]
         return urls
     else:
         raise HTTPException(404, detail="No active shortened URLs were found")

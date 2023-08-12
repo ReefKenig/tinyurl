@@ -12,7 +12,7 @@ const Home = () => {
         headers: { "Content-Type": "applicaion/json" },
       };
       const response = await axios.get(
-        "http://localhost:8000/",
+        "http://host.docker.internal:8000/",
         requestOptions
       );
       const data = response.data;

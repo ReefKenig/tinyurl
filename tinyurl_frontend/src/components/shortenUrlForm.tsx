@@ -16,7 +16,7 @@ const ShortenUrlForm: React.FC<ShortenUrlFormProps> = ({ onSubmit }) => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/url",
+        "http://host.docker.internal:8000/api/url",
         {
           target_url: url,
         },

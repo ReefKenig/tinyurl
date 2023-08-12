@@ -1,5 +1,5 @@
 # Docker file for fastapi backend
-FROM python:3.8-slim-buster
+FROM python:latest
 
 # Set working directory
 WORKDIR /app
@@ -11,13 +11,13 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # Copy app
-COPY . .
+COPY . app
 
 # Expose port
 EXPOSE 8000
 
 # Run app
-CMD ["uvicorn", "app.main:app", "--host", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
 # Build image
 # docker build -t tinyurl_backend .

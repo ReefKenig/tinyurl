@@ -10,7 +10,9 @@ const TinyurlTable: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/all/");
+        const response = await axios.get(
+          "http://host.docker.internal:8000/api/all/"
+        );
         setUrls(response.data);
       } catch (error) {
         console.log("Error fetching data: ", error);
