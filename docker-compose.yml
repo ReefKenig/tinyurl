@@ -12,11 +12,16 @@ services:
       POSTGRES_DB: "tinyurl_db"
 
   backend:
+    depends_on:
+      - database
     build: ./tinyurl_backend
     ports:
       - "8000:8000"
 
   tinyurl_frontend:
+    depends_on:
+      - database
+      - tinyurl_backend
     build: ./tinyurl_frontend
     ports:
       - "3000:3000"
