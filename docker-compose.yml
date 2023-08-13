@@ -18,10 +18,10 @@ services:
     ports:
       - "8000:8000"
 
-  tinyurl_frontend:
+  frontend:
     depends_on:
       - database
-      - tinyurl_backend
+      - backend
     build: ./tinyurl_frontend
     ports:
       - "3000:3000"
